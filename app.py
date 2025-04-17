@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 from functions import *
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/download_audio', methods=['POST'])
 def download_audio_m4a_route():
