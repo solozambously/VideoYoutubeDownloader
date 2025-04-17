@@ -1,4 +1,4 @@
-from pytubefix import YouTube
+from pytubefix import YouTube, Search
 from pytubefix.cli import on_progress
 from pydub import AudioSegment
 
@@ -29,3 +29,20 @@ def determinate_best_audio_stream(url):
     best_audio_stream = max(audio_streams, key=lambda a: int(a.abr.replace('kbps', '').strip()))
     best_audio_tag = best_audio_stream.itag
     return best_audio_tag
+
+def search_video(search):
+    """
+    Cherche des vidéos sur YouTube en fonction d'un terme de recherche.
+    """
+    results = Search(str(search))
+
+    videos_data = []
+    for video in results.videos:
+        video_info = {
+            'title': video.title,
+            'url': video.watch_url,
+            'duration': video.length
+        }
+        videos_data.append(video_info)
+    
+    return videos_data
