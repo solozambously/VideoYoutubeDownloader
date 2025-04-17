@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  youtube-api:
+    container_name: youtubeDownloader-api
+    build: .
+    ports: 
+      - "5500:5500"
+    restart: always
+    volumes:
+      - ./audio:/audio
