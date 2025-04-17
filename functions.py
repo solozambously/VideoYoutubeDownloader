@@ -7,14 +7,14 @@ def download_audio_m4a(url, tag):
     print('Téléchargement en cours de : ', yt.title)
 
     ys = yt.streams.get_by_itag(tag)
-    ys.download()
+    ys.download(output_path="./audio/m4a")
     
 def convert_m4a_to_mp3(url):
     yt = YouTube(url, on_progress_callback=on_progress)
     title = yt.title
     
-    audio = AudioSegment.from_file(f'{title}.m4a', format="m4a")
-    audio.export(f'{title}.mp3', format="mp3")
+    audio = AudioSegment.from_file(f'./audio/m4a/{title}.m4a', format="m4a")
+    audio.export(f'./audio/{title}.mp3', format="mp3")
     
 def determinate_best_audio_stream(url):
     yt = YouTube(url, on_progress_callback=on_progress)
