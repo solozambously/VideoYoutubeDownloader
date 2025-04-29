@@ -31,5 +31,17 @@ def search_video_route():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@app.route('/download_video', methods=['POST'])
+def download_video_route():
+    url = request.form.get("url")
+    if not url:
+        return jsonify({'error': 'URL is required'}), 400
+
+    try:
+        download_video_highest_resolution(url)
+        return jsonify({'message': 'Download started successfully'}), 200
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="5500", debug=True)
