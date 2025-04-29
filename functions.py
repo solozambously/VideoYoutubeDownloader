@@ -3,6 +3,13 @@ from pytubefix.cli import on_progress
 from pydub import AudioSegment
 import re
 
+def download_video_highest_resolution(url):
+    yt = YouTube(url, on_progress_callback=on_progress)
+    print('Téléchargement en cours de : ', yt.title)
+
+    ys = yt.streams.get_highest_resolution()
+    ys.download(output_path="./video", filename=f"{clean_filename(yt.title)}.mp4")
+
 def download_audio_m4a(url, tag):
     yt = YouTube(url, on_progress_callback=on_progress)
     print('Téléchargement en cours de : ', yt.title)
