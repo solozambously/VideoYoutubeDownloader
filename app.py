@@ -1,4 +1,6 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, send_file
+import os
+import uuid
 from functions import *
 from flask_cors import CORS
 
@@ -42,6 +44,52 @@ def download_video_route():
         return jsonify({'message': 'Download started successfully'}), 200
     except Exception as e:
         return jsonify({'error': str(e)}), 500
+
+@app.route('/download_audio_user_m4a', methods=['POST'])
+def download_audio_user_m4a_route():
+    url = request.form.get("url")
+    if not url:
+        return jsonify({'error': 'URL is required'}), 400
+
+    try:
+        tag = determinate_best_audio_stream(url)
+        download_audio_m4a(url, tag)
+        cleaned_filename = download_audio_m4a(url, tag)
+
+        filepath = f"./audio/m4a/{cleaned_filename}.m4a"
+        return send_file(
+            filepath,
+            mimetype='audio/m4a',
+            as_attachment=True,
+            download_name=f'{cleaned_filename}.m4a'
+        )
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
+@app.route('/download_audio_user_mp3', methods=['POST'])
+def download_audio_user_mp3_route():
+    url = request.form.get("url")
+    if not url:
+        return jsonify({'error': 'URL is required'}), 400
+
+    try:
+        tag = determinate_best_audio_stream(url)
+        download_audio_m4a(url, tag)
+        convert_m4a_to_mp3(url)
+        cleaned_filename = download_audio_m4a(url, tag)
+
+        filepath = f"./audio/{cleaned_filename}.mp3"
+        return send_file(
+            filepath,
+            mimetype='audio/mp3',
+            as_attachment=True,
+            download_name=f'{cleaned_filename}.mp3'
+        )
+        
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+
 
 if __name__ == '__main__':
     app.run(host="0.0.0.0", port="5500", debug=True)
