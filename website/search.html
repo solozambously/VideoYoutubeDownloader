@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recherche YouTube</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<style>
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease-in-out both;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<body
+    class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen flex items-center justify-center px-4">
+    <div
+        class="w-full max-w-2xl p-6 sm:p-8 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl animate-fade-in">
+        <h2 class="text-3xl sm:text-4xl font-extrabold text-white text-center mb-6">🔍 Recherche YouTube</h2>
+
+        <input id="search" type="text" placeholder="Titre ou mot-clé..."
+            class="w-full px-4 py-3 bg-white/20 text-white placeholder-white/70 border border-white/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/60" />
+
+        <button onclick="searchVideo()"
+            class="mt-4 w-full bg-gradient-to-r from-indigo-500 to-blue-600 hover:brightness-110 text-white py-2 rounded-xl font-semibold transition duration-300">
+            Rechercher
+        </button>
+
+        <div id="results" class="mt-6 space-y-6"></div>
+    </div>
+
+    <script>
+        function searchVideo() {
+            const search = document.getElementById("search").value;
+            const formData = new FormData();
+            formData.append("search", search);
+
+            fetch("https://szdev.engineer/api-ytdownload/search_video", {
+                method: "POST",
+                body: formData
+            }).then(res => res.json()).then(data => {
+                const results = document.getElementById("results");
+                results.innerHTML = "";
+
+                data.forEach(video => {
+                    const div = document.createElement("div");
+                    div.className = "bg-white/10 border border-white/20 rounded-xl p-4 text-white";
+
+                    div.innerHTML = `
+            <p class="text-lg font-semibold mb-2">${video.title}</p>
+            <p class="mb-4"><a href="${video.url}" target="_blank" class="text-blue-400 underline">Voir sur YouTube</a></p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="/download_audio.html?url=${encodeURIComponent(video.url)}"
+                 class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:brightness-110 text-white py-2 rounded-xl text-center font-semibold transition duration-300">
+                 Télécharger l'audio
+              </a>
+              <a href="/download_video.html?url=${encodeURIComponent(video.url)}"
+                 class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:brightness-110 text-white py-2 rounded-xl text-center font-semibold transition duration-300">
+                 Télécharger la vidéo
+              </a>
+            </div>
+          `;
+
+                    results.appendChild(div);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>

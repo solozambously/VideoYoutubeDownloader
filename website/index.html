@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YouTube Downloader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        fadeIn: 'fadeIn 1s ease-in-out',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: 0 },
+                            '100%': { opacity: 1 },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="bg-gradient-to-br from-indigo-600 to-purple-600 text-white min-h-screen flex flex-col justify-between">
+
+    <main class="flex-grow flex flex-col items-center justify-center text-center p-6 animate-fadeIn">
+        <h1 class="text-5xl font-extrabold mb-4">YouTube Downloader</h1>
+        <p class="text-lg text-white/80 mb-8">Choisissez une action</p>
+
+        <div class="flex flex-col gap-4 w-64">
+            <a href="search.html"
+                class="bg-white/10 hover:bg-white/20 text-white font-semibold py-3 rounded-xl transition">🔎 Rechercher
+                une vidéo</a>
+            <a href="download_video.html"
+                class="bg-white/10 hover:bg-white/20 text-white font-semibold py-3 rounded-xl transition">📹 Télécharger
+                une vidéo</a>
+            <a href="download_audio.html"
+                class="bg-white/10 hover:bg-white/20 text-white font-semibold py-3 rounded-xl transition">🎧 Télécharger
+                l'audio</a>
+        </div>
+    </main>
+
+    <footer class="text-center text-sm text-white/60 py-4">
+        <p>Fait par <strong>Solozamously Développement</strong></p>
+        <p>
+            <a href="https://github.com/solozambously/VideoYoutubeDownloader/" target="_blank"
+                class="underline hover:text-white">GitHub</a> — ©
+            <span id="year"></span> Tous droits réservés.
+        </p>
+    </footer>
+
+    <script>
+        // Affiche l'année actuelle automatiquement
+        document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
+</body>
+
+</html>
