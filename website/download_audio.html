@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Télécharger Audio YouTube</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<style>
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease-in-out both;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+</style>
+
+<body
+    class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen flex items-center justify-center px-4">
+    <div
+        class="w-full max-w-xl p-6 sm:p-8 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl animate-fade-in">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white text-center mb-6">
+            🎧 Téléchargeur Audio YouTube
+        </h1>
+
+        <input id="videoUrl" type="text" placeholder="Colle ici l'URL de la vidéo"
+            class="w-full px-4 py-3 bg-white/20 text-white placeholder-white/70 border border-white/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/60" />
+
+        <div class="flex flex-col sm:flex-row gap-4 mt-6">
+            <button onclick="download('mp3')"
+                class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:brightness-110 text-white py-2 rounded-xl font-semibold transition duration-300">
+                Télécharger en MP3
+            </button>
+            <button onclick="download('m4a')"
+                class="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:brightness-110 text-white py-2 rounded-xl font-semibold transition duration-300">
+                Télécharger en M4A
+            </button>
+        </div>
+
+        <p id="status" class="text-sm text-center mt-4 text-white/80 hidden"></p>
+    </div>
+
+    <script>
+        function download(format) {
+            const url = document.getElementById("videoUrl").value.trim();
+            const status = document.getElementById("status");
+
+            if (!url) {
+                status.innerText = "Merci d'entrer une URL YouTube.";
+                status.classList.remove("hidden");
+                return;
+            }
+
+            const endpoint = format === "mp3"
+                ? "https://szdev.engineer/api-ytdownload/download_audio_user_mp3"
+                : "https://szdev.engineer/api-ytdownload/download_audio_user_m4a";
+
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = endpoint;
+            form.style.display = "none";
+
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "url";
+            input.value = url;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+
+            status.innerText = "Téléchargement en cours...";
+            status.classList.remove("hidden");
+        }
+    </script>
+</body>
+
+</html>

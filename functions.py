@@ -21,6 +21,8 @@ def download_video_highest_resolution(url):
 
     ys = yt.streams.get_highest_resolution()
     ys.download(output_path="./video", filename=f"{clean_filename(yt.title)}.mp4")
+    
+    return clean_filename(yt.title)
 
 def download_audio_m4a(url, tag):
     yt = YouTube(url, on_progress_callback=on_progress)
