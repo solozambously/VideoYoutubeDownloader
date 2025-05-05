@@ -64,11 +64,11 @@
             <p class="text-lg font-semibold mb-2">${video.title}</p>
             <p class="mb-4"><a href="${video.url}" target="_blank" class="text-blue-400 underline">Voir sur YouTube</a></p>
             <div class="flex flex-col sm:flex-row gap-4">
-              <a href="/download_audio.html?url=${encodeURIComponent(video.url)}"
+              <a href="download_audio.html?url=${encodeURIComponent(video.url)}"
                  class="w-full bg-gradient-to-r from-blue-500 to-indigo-600 hover:brightness-110 text-white py-2 rounded-xl text-center font-semibold transition duration-300">
                  Télécharger l'audio
               </a>
-              <a href="/download_video.html?url=${encodeURIComponent(video.url)}"
+              <a href="download_video.html?url=${encodeURIComponent(video.url)}"
                  class="w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:brightness-110 text-white py-2 rounded-xl text-center font-semibold transition duration-300">
                  Télécharger la vidéo
               </a>

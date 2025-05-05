@@ -52,9 +52,16 @@
     </div>
 
     <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const url = urlParams.get('url');
+        const inputField = document.getElementById('videoUrl');
+
+        if (url && inputField) {
+            inputField.value = url;
+        }
+
         function download(format) {
-            const url = document.getElementById("videoUrl").value.trim();
-            const status = document.getElementById("status");
+            const url = document.getElementById("videoUrl").value;
 
             if (!url) {
                 status.innerText = "Merci d'entrer une URL YouTube.";
@@ -63,8 +70,8 @@
             }
 
             const endpoint = format === "mp3"
-                ? "https://szdev.engineer/api-ytdownload/download_audio_user_mp3"
-                : "https://szdev.engineer/api-ytdownload/download_audio_user_m4a";
+                ? "https://szdev.engineer/api-ytdownload/download_audio_mp3"
+                : "https://szdev.engineer/api-ytdownload/download_audio_m4a";
 
             const form = document.createElement("form");
             form.method = "POST";
