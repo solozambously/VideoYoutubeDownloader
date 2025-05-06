@@ -1,16 +1,16 @@
-# 📅 VideoYoutubeDownloader
+# 📅 YouTube - Downloader by SoloZambously
 
-**VideoYoutubeDownloader** est une application Python permettant de 👇 **télécharger des vidéos ou de l'audio depuis YouTube**.
-Elle prend en charge les formats **MP4**, **M4A** et **MP3**, avec une **API REST** simple pour une intégration facile.
+Une API simple et rapide pour rechercher et télécharger des vidéos YouTube en **audio (MP3/M4A)** ou en **vidéo (MP4)** avec une interface web intégrée.  
 
 ---
 
 ## ✨ Fonctionnalités
 
-- 🎮 **Téléchargement de vidéos** YouTube dans leur meilleure qualité
-- 🎵 **Téléchargement de l'audio** (format M4A ou conversion en MP3)
-- 🔎 **Recherche de vidéos** par mots-clés
-- 🐛 **API REST** pour interagir avec l'application
+- 🔍 Recherche de vidéos par mot-clé
+- 📥 Téléchargement audio (MP3, M4A)
+- 📺 Téléchargement vidéo (MP4)
+- ⚡ Serveur léger avec Flask + envoi automatique du fichier
+- 🎨 UI responsive et animée (CDN TailwindCSS)
 
 ---
 
@@ -44,41 +44,22 @@ docker-compose up
 
 L'application sera disponible sur [http://localhost:5500](http://localhost:5500) 🌐
 
-> ⌛ Une version accessible en ligne arrivera bientôt.
+> L'API est disponible aussi sur https://szdev.engineer/api-ytdownload/(endpoint)
 
 ---
 
 ## 📱 Utilisation de l'API
 
-### 🎥 Télécharger une vidéo
-- **Endpoint** : `POST /download_video`
-- **Paramètres** : `url` (URL YouTube)
-- **Réponse** :
-```json
-{ "message": "Download started successfully" }
-```
+### 🔌 API - Routes Flask
 
-### 🎶 Télécharger l'audio
-- **Endpoint** : `POST /download_audio`
-- **Paramètres** : `url` (URL YouTube)
-- **Réponse** :
-```json
-{ "message": "Download started successfully" }
-```
+| Méthode | Endpoint                | Description                     |
+|---------|-------------------------|---------------------------------|
+| GET     | `/ping`                | Vérifie que le serveur fonctionne |
+| POST    | `/search_video`        | Recherche de vidéos YouTube      |
+| POST    | `/download_audio_mp3`  | Télécharge audio en `.mp3`       |
+| POST    | `/download_audio_m4a`  | Télécharge audio en `.m4a`       |
+| POST    | `/download_video`      | Télécharge vidéo en `.mp4`       |
 
-### 🔍 Rechercher une vidéo
-- **Endpoint** : `POST /search_video`
-- **Paramètres** : `search` (mot-clé)
-- **Réponse** :
-```json
-[
-  {
-    "title": "Example Video",
-    "url": "https://youtube.com/watch?v=example",
-    "duration": 300
-  }
-]
-```
 
 ---
 
@@ -91,9 +72,12 @@ Pour proposer une fonctionnalité ou corriger un bug :
 
 ---
 
-## 📄 Auteur
+## 🧑‍💻 Auteur
 
-Projet développé par **Solal Bouzanquet**.
+Développé par Solal Bouzanquet
+
+✉️ zambouslysolo@gmail.com
+🌐 szdev.engineer
 
 ---
 
