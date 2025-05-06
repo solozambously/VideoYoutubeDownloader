@@ -86,3 +86,12 @@ Développé par Solal Bouzanquet
 Ce projet est sous licence MIT.
 Consulte le fichier LICENSE pour plus de détails.
 
+---
+
+## 🌐 Hébergement du projet
+
+L'API est hébergée sur mon serveur et accessible à l'adresse suivante : https://szdev.engineer/api-ytdownload/(endpoint)
+
+Vous pouvez tester le projet sur ce site : [https://szdev.engineer/yt/](https://szdev.engineer/yt/)
+
+Ce dépôt GitHub a pour but de présenter le projet et de fournir les instructions nécessaires pour l'utiliser ou l'héberger vous-même.
