@@ -15,11 +15,25 @@ def clean_filename(filename):
     
     return cleaned_filename
 
+def determinate_best_video_stream(url):
+    yt = YouTube(url, on_progress_callback=on_progress)
+    streams = yt.streams
+
+    video_streams = []
+
+    for stream in streams:
+        if stream.mime_type == "video/mp4" and stream.resolution:
+            video_streams.append(stream)
+
+    best_video_stream = max(video_streams, key=lambda v: int(v.resolution.replace('p', '').strip()))
+    best_video_tag = best_video_stream.itag
+    return best_video_tag
+
 def download_video_highest_resolution(url):
     yt = YouTube(url, on_progress_callback=on_progress)
     print('Téléchargement en cours de : ', yt.title)
 
-    ys = yt.streams.get_highest_resolution()
+    ys = yt.streams.get_by_itag(determinate_best_video_stream(url))
     ys.download(output_path="./video", filename=f"{clean_filename(yt.title)}.mp4")
     
     return clean_filename(yt.title)
