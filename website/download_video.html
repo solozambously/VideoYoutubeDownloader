@@ -1,41 +1,113 @@
-<!-- comingsoon.html -->
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fonctionnalité à venir - YouTube Downloader - SoloZambously Developpement</title>
+    <title>Video - YouTube Downloader - SoloZambously Developpement</title>
     <link rel="icon" type="image/png" href="favicon.png" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
-<body class="bg-gradient-to-br from-purple-600 to-indigo-600 flex items-center justify-center min-h-screen text-white">
-    <div class="text-center animate-fade-in">
-        <h1 class="text-4xl font-bold mb-4">🚧 Fonctionnalité en cours de développement</h1>
-        <p class="text-lg mb-6">Cette page sera disponible très bientôt. Reste connecté !</p>
-        <a href="index.html"
-            class="px-6 py-2 bg-white text-indigo-600 font-semibold rounded-full shadow-md hover:shadow-lg hover:bg-indigo-100 transition duration-300">Retour
-            à l'accueil</a>
+<style>
+    .animate-fade-in {
+        animation: fadeIn 0.8s ease-in-out both;
+    }
+
+    @keyframes fadeIn {
+        from {
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+
+    .custom-loader {
+        border: 4px solid rgba(255, 255, 255, 0.2);
+        border-left-color: #ffffff;
+        border-radius: 50%;
+        width: 1.2rem;
+        height: 1.2rem;
+        animation: spin 0.8s linear infinite;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 0.5rem;
+    }
+
+    @keyframes spin {
+        to {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<body
+    class="bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 min-h-screen flex items-center justify-center px-4">
+    <div
+        class="w-full max-w-xl p-6 sm:p-8 bg-white/10 backdrop-blur-lg border border-white/20 rounded-3xl shadow-2xl animate-fade-in">
+        <h1 class="text-3xl sm:text-4xl font-extrabold text-white text-center mb-6">
+            📹 Téléchargeur Vidéo YouTube
+        </h1>
+
+        <input id="videoUrl" type="text" placeholder="Colle ici l'URL de la vidéo"
+            class="w-full px-4 py-3 bg-white/20 text-white placeholder-white/70 border border-white/30 rounded-xl focus:outline-none focus:ring-2 focus:ring-white/60" />
+
+        <button onclick="downloadVideo()"
+            class="mt-6 w-full bg-gradient-to-r from-pink-500 to-purple-600 hover:brightness-110 text-white py-2 rounded-xl font-semibold transition duration-300">
+            Télécharger la vidéo
+        </button>
+
+        <p id="status" class="text-sm text-center mt-4 text-white/80 hidden"></p>
     </div>
 
-    <style>
-        .animate-fade-in {
-            animation: fadeIn 1.2s ease-in-out both;
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const inputField = document.getElementById('videoUrl');
+        const status = document.getElementById("status");
+
+        const url = urlParams.get('url');
+        if (url && inputField) {
+            inputField.value = url;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
+        function downloadVideo() {
+            const videoUrl = inputField.value.trim();
+            if (!videoUrl) {
+                status.innerText = "Merci d'entrer une URL YouTube.";
+                status.classList.remove("hidden");
+                return;
             }
 
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            // Créer et envoyer le formulaire
+            const form = document.createElement("form");
+            form.method = "POST";
+            form.action = "http://127.0.0.1:5500/download_video";
+            form.style.display = "none";
+
+            const input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "url";
+            input.value = videoUrl;
+
+            form.appendChild(input);
+            document.body.appendChild(form);
+            form.submit();
+            document.body.removeChild(form);
+
+            inputField.value = ""; // Vider le champ
+            status.innerHTML = `<span class="custom-loader"></span> Téléchargement en cours...`;
+            status.classList.remove("hidden");
+
+            // Changer le message après 4 secondes
+            setTimeout(() => {
+                status.innerText = "✅ Téléchargement lancé ! Une autre vidéo ?";
+            }, 4000);
         }
-    </style>
+    </script>
 </body>
 
 </html>
