@@ -52,13 +52,13 @@ L'application sera disponible sur [http://localhost:5500](http://localhost:5500)
 
 ### 🔌 API - Routes Flask
 
-| Méthode | Endpoint                | Description                     |
-|---------|-------------------------|---------------------------------|
-| GET     | `/ping`                | Vérifie que le serveur fonctionne |
-| POST    | `/search_video`        | Recherche de vidéos YouTube      |
-| POST    | `/download_audio_mp3`  | Télécharge audio en `.mp3`       |
-| POST    | `/download_audio_m4a`  | Télécharge audio en `.m4a`       |
-| POST    | `/download_video`      | Télécharge vidéo en `.mp4`       |
+| Méthode | Endpoint                 | Paramètres requis (Form Data)         | Description                                 | Réponse                          |
+|---------|--------------------------|---------------------------------------|---------------------------------------------|----------------------------------|
+| GET     | /ping                    | Aucun                                 | Vérifie que le serveur fonctionne           | { "message": "pong" }            |
+| POST    | /search_video            | search (string)                       | Recherche de vidéos YouTube                 | Liste d’objets vidéo             |
+| POST    | /download_audio_mp3      | url (string)                          | Télécharge l’audio en .mp3                  | Fichier `.mp3`                   |
+| POST    | /download_audio_m4a      | url (string)                          | Télécharge l’audio en .m4a                  | Fichier `.m4a`                   |
+| POST    | /download_video          | url (string)                          | Télécharge la vidéo en .mp4                 | Fichier `.mp4`                   |
 
 
 ---
